@@ -1,0 +1,49 @@
+using BookStore.Application.IRepositories;
+using BookStore.Application.Services.BooksServices;
+using BookStore.Application.Services.LanguagesServices;
+using BookStore.Application.Services.PublisherService;
+using BookStore.Infrastructure.Data;
+using BookStore.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Formatting.Compact;
+
+var builder = WebApplication.CreateBuilder(args);
+//builder.Host.UseSerilog((ctx, config) =>
+//{
+//	config.MinimumLevel.Debug();
+//	config.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning);
+//	config.WriteTo.File(new RenderedCompactJsonFormatter(), @$"{Environment.CurrentDirectory}");
+//});
+// Add services to the container.
+builder.Services.AddDbContext<BookStoreContext>(opt => {
+	opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+	});
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<ILanguageService, LanguageService>();
+builder.Services.AddTransient<IPublisherService, PublisherService>();
+builder.Services.AddControllers();
+builder.Services.Configure<JsonOptions>(opt=>
+{
+	opt.SerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+});
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+	app.UseSwagger();
+	app.UseSwaggerUI();
+}
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
