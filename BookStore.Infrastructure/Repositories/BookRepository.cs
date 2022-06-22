@@ -17,7 +17,8 @@ namespace BookStore.Infrastructure.Repositories
 
 		public async Task<IEnumerable<BookDto>> GetBooksAsync(int page, int pageSize)
 		{
-			return await _context.Books.OrderBy(b => b.BookId)
+
+			var res =  await _context.Books.OrderBy(b => b.BookId)
 				.Include(e => e.Authors)
 				.Include(e=>e.Language)
 				.Include(e=>e.Publisher)
@@ -32,6 +33,7 @@ namespace BookStore.Infrastructure.Repositories
 					Authers = string.Join('-', e.Authors.Select(e => e.AuthorName).ToArray())
 				})
 				.ToListAsync();
+			return res;
 		}
 	}
 }
