@@ -14,5 +14,9 @@ namespace BookStore.Domain
         public string? AuthorName { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
-    }
+		public override string ToString()
+		{
+            return string.IsNullOrEmpty(AuthorName)?string.Empty:AuthorName;
+		}
+	}
 }

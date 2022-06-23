@@ -1,4 +1,5 @@
-﻿using BookStore.Application.IRepositories;
+﻿using AutoMapper;
+using BookStore.Application.IRepositories;
 using BookStore.Application.Services.BooksServices.Dto;
 using BookStore.Application.Services.LanguagesServices;
 using BookStore.Application.Services.LanguagesServices.Dto;
@@ -14,13 +15,16 @@ namespace BookStore.Application.Services.BooksServices
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly ILanguageService _languageService;
 		private readonly IPublisherService _publisherService;
+		private readonly IMapper _mapper;
 
 		public BookService(IUnitOfWork unitOfWork,ILanguageService languageService,
-							IPublisherService publisherService)
+							IPublisherService publisherService
+			, IMapper mapper)
 		{
 			_unitOfWork = unitOfWork;
 			this._languageService = languageService;
 			this._publisherService = publisherService;
+			this._mapper = mapper;
 		}
 		public async Task<ApiResponse<Book>> AddBookAsync(BookCreateDto bookDto)
 		{
@@ -59,9 +63,12 @@ namespace BookStore.Application.Services.BooksServices
 			return true;
 		}
 
-		public async Task<IEnumerable<BookDto>> GetAll(int page=0, int pageSize = 100)
-					=> await _unitOfWork.bookRepository
-										.GetBooksAsync(page, pageSize);
+		public async Task<IEnumerable<BookDto>> GetAll(int page = 0, int pageSize = 100)
+		{
+			var books = await _unitOfWork.bookRepository
+										  .GetBooksAsync(page, pageSize);
+			return _mapper.Map <IEnumerable<BookDto>>(books);
+		}
 
 		public Task<Book> GetBookByIdAsync(int id)
 		{

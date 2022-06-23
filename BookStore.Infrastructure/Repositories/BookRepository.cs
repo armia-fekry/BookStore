@@ -16,7 +16,7 @@ namespace BookStore.Infrastructure.Repositories
 			this._context = context;
 		}
 
-		public async Task<IEnumerable<BookDto>> GetBooksAsync(int page, int pageSize)
+		public async Task<IEnumerable<Book>> GetBooksAsync(int page, int pageSize)
 		{
 
 			var res =  await _context.Books.OrderBy(b => b.BookId)
@@ -25,16 +25,6 @@ namespace BookStore.Infrastructure.Repositories
 				.Include(e=>e.Publisher)
 				.Skip(page)
 				.Take(pageSize)
-				.Select(e => new BookDto()
-				{
-					Path = e.Path,
-					Title = e.Title,
-					BookLanguage=e.Language.LanguageName,
-					Publisher=e.Publisher.PublisherName,
-					Authers = string.Join('-', e.Authors.Select(e => e.AuthorName).ToArray()),
-					Img=Helper.ImageToBase64($"{Directory.GetCurrentDirectory()}/ImgFiles/{e.Path}.jpeg")
-					
-				})
 				.ToListAsync();
 			return res;
 		}

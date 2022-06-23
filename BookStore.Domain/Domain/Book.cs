@@ -28,5 +28,6 @@ namespace BookStore.Domain
         public virtual ICollection<OrderLine> OrderLines { get; set; }
 
         public virtual ICollection<Author> Authors { get; set; }
-    }
+		
+	}
 }
