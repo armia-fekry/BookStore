@@ -6,6 +6,7 @@ using BookStore.Infrastructure.Data;
 using BookStore.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Serilog;
 using Serilog.Formatting.Compact;
 
@@ -17,6 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 //	config.WriteTo.File(new RenderedCompactJsonFormatter(), @$"{Environment.CurrentDirectory}");
 //});
 // Add services to the container.
+
+
 builder.Services.AddDbContext<BookStoreContext>(opt => {
 	opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 	});
@@ -41,7 +44,13 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "ImgFiles")),
+    RequestPath = "/ImgFiles",
+    EnableDefaultFiles = true
+});
 app.UseAuthorization();
 
 app.MapControllers();

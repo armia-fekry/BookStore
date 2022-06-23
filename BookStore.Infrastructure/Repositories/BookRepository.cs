@@ -1,5 +1,6 @@
 ﻿using BookStore.Application.IRepositories;
 using BookStore.Application.Services.BooksServices.Dto;
+using BookStore.Application.Shared;
 using BookStore.Domain;
 using BookStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,9 @@ namespace BookStore.Infrastructure.Repositories
 					Title = e.Title,
 					BookLanguage=e.Language.LanguageName,
 					Publisher=e.Publisher.PublisherName,
-					Authers = string.Join('-', e.Authors.Select(e => e.AuthorName).ToArray())
+					Authers = string.Join('-', e.Authors.Select(e => e.AuthorName).ToArray()),
+					Img=Helper.ImageToBase64($"{Directory.GetCurrentDirectory()}/ImgFiles/{e.Path}.jpeg")
+					
 				})
 				.ToListAsync();
 			return res;

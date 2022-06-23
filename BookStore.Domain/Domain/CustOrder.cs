@@ -5,7 +5,7 @@ namespace BookStore.Domain
 {
     public partial class CustOrder
     {
-        public CustOrder() { }
+        
         public CustOrder()
         {
             OrderHistories = new HashSet<OrderHistory>();

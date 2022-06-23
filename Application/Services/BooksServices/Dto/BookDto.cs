@@ -8,5 +8,6 @@
 		public string Publisher { get; set; }
 		public string? Path { get; set; }
 		public string? Authers { get; set; }
+		public string? Img  { get; set; }
 	}
 }
