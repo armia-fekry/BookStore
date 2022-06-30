@@ -11,6 +11,9 @@ namespace BookStore.Application.Mapping.BookMappers
 		{
 			CreateMap<Book, BookDto>()
 				.ForMember(dto => dto.Title, model => model.MapFrom(e => e.Title))
+				.ForMember(dto => dto.Price, model => model.MapFrom(e => e.Price))
+				.ForMember(dto => dto.Reviews, model => model.MapFrom(e => e.Reviews))
+				.ForMember(dto => dto.Description, model => model.MapFrom(e => e.Description))
 				.ForMember(dto => dto.NumPages, model => model.MapFrom(e => e.NumPages))
 				.ForMember(dto => dto.BookId, model => model.MapFrom(e => e.BookId))
 				.ForMember(dto => dto.Authers, model => model.MapFrom(e => Helper.ExtractAuthersNames(e.Authors.ToList())))

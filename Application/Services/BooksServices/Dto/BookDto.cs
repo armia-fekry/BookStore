@@ -5,6 +5,9 @@
 		public string BookId { get; set; }
 		public string? Title { get; set; }
 		public int? NumPages { get; set; }
+		public string Description { get; set; }
+		public decimal Price { get; set; }
+		public int Reviews { get; set; }
 		public string BookLanguage { get; set; }
 		public string Publisher { get; set; }
 		public string? Authers { get; set; }

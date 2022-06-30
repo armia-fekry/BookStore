@@ -2,6 +2,7 @@
 using BookStore.Application.Services.BooksServices.Dto;
 using BookStore.Application.Shared;
 using BookStore.Domain;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,9 +21,9 @@ namespace BookStore.Api.Controllers
 		}
 		// GET: api/<BookController>
 		[HttpGet]
-		public async Task<IEnumerable<object>> Get()
+		public async Task<IEnumerable<object>> Get(int page=0,int pageSize=100)
 		{
-			return await _bookService.GetAll();
+			return await _bookService.GetAll(page,pageSize);
 		}
 
 		// GET api/<BookController>/5

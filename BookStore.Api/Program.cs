@@ -18,7 +18,19 @@ var builder = WebApplication.CreateBuilder(args);
 //	config.WriteTo.File(new RenderedCompactJsonFormatter(), @$"{Environment.CurrentDirectory}");
 //});
 // Add services to the container.
+#region Add Cors 
+builder.Services.AddCors(options =>
+{
 
+    options.AddPolicy(name: "AllowOrigin",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
+#endregion
 
 builder.Services.AddDbContext<BookStoreContext>(opt => {
 	opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
@@ -52,8 +64,8 @@ app.UseFileServer(new FileServerOptions
     RequestPath = "/ImgFiles",
     EnableDefaultFiles = true
 });
+app.UseCors("AllowOrigin");
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
