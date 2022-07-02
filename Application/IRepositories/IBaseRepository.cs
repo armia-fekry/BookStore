@@ -5,9 +5,10 @@ namespace BookStore.Application.IRepositories
 {
 	public interface IBaseRepository<T> where T : class
 	{
-        T GetById(int id);
-        Task<T> GetByIdAsync(int id);
+        T GetById(Guid id);
+        Task<T> GetByIdAsync(Guid id);
         IEnumerable<T> GetAll();
+        IQueryable<T> GetAllAsyncQuery();
         Task<IEnumerable<T>> GetAllAsync();
         T Find(Expression<Func<T, bool>> criteria, string[] includes = null);
         Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);

@@ -48,7 +48,7 @@ namespace BookStore.Api.Controllers
 
 		// DELETE api/<BookController>/5
 		[HttpDelete("{id}")]
-		public ActionResult Delete(int id)
+		public ActionResult Delete(Guid id)
 		{
 			return Ok(_bookService.DeleteBook(id));
 		}

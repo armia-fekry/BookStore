@@ -12,7 +12,6 @@ namespace BookStore.Domain
 
         public Guid PublisherId { get; set; }
         public string? PublisherName { get; set; }
-
         public virtual ICollection<Book> Books { get; set; }
     }
 }

@@ -24,12 +24,12 @@ namespace BookStore.Infrastructure.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public T GetById(int id)
+        public T GetById(Guid id)
         {
             return _context.Set<T>().Find(id);
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(Guid id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
@@ -201,5 +201,10 @@ namespace BookStore.Infrastructure.Repositories
         {
             return await _context.Set<T>().CountAsync(criteria);
         }
-    }
+
+		public IQueryable<T> GetAllAsyncQuery()
+		{
+            return _context.Set<T>().AsQueryable();
+		}
+	}
 }

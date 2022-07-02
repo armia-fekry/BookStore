@@ -39,7 +39,7 @@ namespace BookStore.Application.Services.PublisherService
 			throw new NotImplementedException();
 		}
 
-		public async Task<ApiResponse<Publisher>> GetPublisheByIdAsync(int id)
+		public async Task<ApiResponse<Publisher>> GetPublisheByIdAsync(Guid id)
 		{
 			var result = new ApiResponse<Publisher>();
 			try

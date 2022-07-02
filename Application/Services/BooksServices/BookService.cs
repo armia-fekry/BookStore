@@ -54,7 +54,7 @@ namespace BookStore.Application.Services.BooksServices
 			return result;
 		}
 		
-		public bool DeleteBook(int id)
+		public bool DeleteBook(Guid id)
 		{
 			var book = _unitOfWork.bookRepository.GetById(id);
 			if (book == null)
@@ -70,7 +70,7 @@ namespace BookStore.Application.Services.BooksServices
 			return _mapper.Map <IEnumerable<BookDto>>(books);
 		}
 
-		public Task<Book> GetBookByIdAsync(int id)
+		public Task<Book> GetBookByIdAsync(Guid id)
 		{
 
 			throw new NotImplementedException();
