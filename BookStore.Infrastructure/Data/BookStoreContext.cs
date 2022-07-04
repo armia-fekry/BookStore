@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain;
+using BookStore.Domain.Domain;
 using BookStore.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,7 @@ namespace BookStore.Infrastructure.Data
         public virtual DbSet<OrderLine> OrderLines { get; set; } = null!;
         public virtual DbSet<OrderStatus> OrderStatuses { get; set; } = null!;
         public virtual DbSet<Publisher> Publishers { get; set; } = null!;
+        public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<ShippingMethod> ShippingMethods { get; set; } = null!;
 
        
@@ -136,7 +138,10 @@ namespace BookStore.Infrastructure.Data
                     .WithMany(p => p.Books)
                     .HasForeignKey(d => d.PublisherId)
                     .HasConstraintName("fk_book_pub");
-
+                entity.HasOne(d => d.Category)
+                        .WithMany(e => e.Books)
+                        .HasForeignKey(d => d.CategotyId); 
+                        
                 entity.HasMany(d => d.Authors)
                     .WithMany(p => p.Books)
                     .UsingEntity<Dictionary<string, object>>(
@@ -188,7 +193,11 @@ namespace BookStore.Infrastructure.Data
                     .HasMaxLength(200)
                     .HasColumnName("country_name");
             });
-
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasKey(e => e.CategotyId);
+                        
+            });
             modelBuilder.Entity<CustOrder>(entity =>
             {
                 entity.HasKey(e => e.OrderId)

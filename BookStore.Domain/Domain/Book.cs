@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Domain.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -22,11 +23,12 @@ namespace BookStore.Domain
 		public int Reviews { get; set; }
 		public DateTime? PublicationDate { get; set; }
         public Guid? PublisherId { get; set; }
+		public Guid? CategotyId { get; set; }
 		public string? Path { get; set; }
         [JsonIgnore]
 		public virtual BookLanguage? Language { get; set; }
+		public virtual Category? Category { get; set; }
         [JsonIgnore]
-
         public virtual Publisher? Publisher { get; set; }
         public virtual ICollection<OrderLine> OrderLines { get; set; }
 

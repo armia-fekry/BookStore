@@ -23,6 +23,7 @@ namespace BookStore.Infrastructure.Repositories
 				.Include(e => e.Authors)
 				.Include(e=>e.Language)
 				.Include(e=>e.Publisher)
+				.Include(e=>e.Category)
 				.Skip(page)
 				.Take(pageSize)
 				.ToListAsync();
