@@ -7,9 +7,7 @@ namespace BookStore.Infrastructure.Repositories
 	{
 		private readonly BookStoreContext _context;
 		public IBookRepository bookRepository { get; private set; }
-
 		public IBookLanguageRepository bookLanguageRepository { get; private set; }
-
 		public IPublisherRepository publisherRepository { get; private set; }
 		public ICustOrderRepository custOrderRepository { get; private set; }
 		public IShippingMethodRepository shippingMethodRepository { get; private set; }
@@ -18,11 +16,11 @@ namespace BookStore.Infrastructure.Repositories
 		public IOrderHistoryRepository orderHistoryRepository { get; private set; }
 
 		public IorderLineRepository orderLineRepository { get; private set; }
+		public ICategoryRepository categoryRepository { get; private set; }
 
 		public UnitOfWork(BookStoreContext context)
 		{
 			this._context = context;
-
 			bookRepository = new BookRepository(context);
 			publisherRepository = new PublisherRepository(context);
 			bookLanguageRepository = new BookLanguageRepositoy(context);
@@ -32,6 +30,7 @@ namespace BookStore.Infrastructure.Repositories
 			shippingMethodRepository=new ShippingMethodRepository(context);
 			orderLineRepository=new OrderLineRepository(context);
 			orderHistoryRepository=new OrderHistoryRepository(context);
+			categoryRepository=new CategoryRepository(context);
 		}
 
 		public int Complete()

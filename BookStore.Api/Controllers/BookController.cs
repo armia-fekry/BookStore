@@ -23,14 +23,15 @@ namespace BookStore.Api.Controllers
 		[HttpGet]
 		public async Task<IEnumerable<object>> Get(int page=0,int pageSize=100)
 		{
+			
 			return await _bookService.GetAll(page,pageSize);
 		}
 
 		// GET api/<BookController>/5
 		[HttpGet("{id}")]
-		public string Get(int id)
+		public async Task<ActionResult> Get(string id)
 		{
-			return "value";
+			return Ok(await _bookService.GetBookByIdAsync(Guid.Parse(id)));
 		}
 
 		// POST api/<BookController>

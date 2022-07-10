@@ -70,10 +70,21 @@ namespace BookStore.Application.Services.BooksServices
 			return _mapper.Map <IEnumerable<BookDto>>(books);
 		}
 
-		public Task<Book> GetBookByIdAsync(Guid id)
+		public async Task<ApiResponse<BookDto>> GetBookByIdAsync(Guid id)
 		{
-
-			throw new NotImplementedException();
+			Assersion.AgainstGuid(id, "Invalid Book Id");
+			var result = new ApiResponse<BookDto>();
+			try
+			{
+				var book =_unitOfWork.bookRepository.GetById(id);
+				result.Result=_mapper.Map<BookDto>(book);
+				result.Succeeded = true;
+			}
+			catch (Exception ex)
+			{
+				result.Errors=Helper.FormatException(ex.Message, ex.StackTrace);
+			}
+			return await Task.FromResult(result);
 		}
 
 		public Task<Book> GetBookByNameAsync(string name)

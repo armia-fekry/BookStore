@@ -1,5 +1,6 @@
 using BookStore.Application.IRepositories;
 using BookStore.Application.Services.BooksServices;
+using BookStore.Application.Services.CategoriesServices;
 using BookStore.Application.Services.CustOrderServices;
 using BookStore.Application.Services.LanguagesServices;
 using BookStore.Application.Services.OrderHistories;
@@ -43,6 +44,7 @@ builder.Services.AddTransient<ILanguageService, LanguageService>();
 builder.Services.AddTransient<IPublisherService, PublisherService>();
 builder.Services.AddTransient<ICustOrderService, CustOrderService>();
 builder.Services.AddTransient<IOrderHistoryService, OrderHistoryService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddControllers();
 builder.Services.Configure<JsonOptions>(opt=>
 {

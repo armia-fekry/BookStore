@@ -12,5 +12,11 @@
 			if(values.All(x => x == null))
 				throw new ArgumentException(message);
 		}
+
+		internal static void AgainstGuid(Guid id, string v)
+		{
+			if (id == Guid.Empty)
+				throw new InvalidDataException(v);
+		}
 	}
 }

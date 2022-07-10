@@ -11,6 +11,7 @@
 		public ICustOrderRepository custOrderRepository { get; }
 		public IShippingMethodRepository shippingMethodRepository { get; }
 		public IorderLineRepository orderLineRepository { get; }
+		public ICategoryRepository categoryRepository { get; }
 		int Complete();
 	}
 }
