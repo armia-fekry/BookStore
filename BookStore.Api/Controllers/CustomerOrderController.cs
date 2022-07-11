@@ -47,5 +47,10 @@ namespace BookStore.Api.Controllers
 		public void Delete(int id)
 		{
 		}
+		[HttpGet("shippingMethods")]
+		public async Task<ActionResult> GetShippingMethods()
+		{
+			return Ok(await _custOrderService.ShippingMethod());
+		}
 	}
 }

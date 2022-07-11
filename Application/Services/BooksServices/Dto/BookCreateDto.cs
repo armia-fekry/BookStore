@@ -1,5 +1,4 @@
-﻿using BookStore.Application.Services.LanguagesServices.Dto;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Application.Services.BooksServices.Dto
 {
@@ -7,8 +6,6 @@ namespace BookStore.Application.Services.BooksServices.Dto
 	{
         public string? Title { get; set; }
         public string? Isbn13 { get; set; }
-        public Guid? LanguageId { get; set; }
-		public LanguageDto? Language { get; set; }
 		public int? NumPages { get; set; }
         public DateTime? PublicationDate { get; set; }
         public Guid? PublisherId { get; set; }

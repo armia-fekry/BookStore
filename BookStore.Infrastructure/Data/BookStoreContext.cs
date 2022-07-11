@@ -28,7 +28,6 @@ namespace BookStore.Infrastructure.Data
         public virtual DbSet<AddressStatus> AddressStatuses { get; set; } = null!;
         public virtual DbSet<Author> Authors { get; set; } = null!;
         public virtual DbSet<Book> Books { get; set; } = null!;
-        public virtual DbSet<BookLanguage> BookLanguages { get; set; } = null!;
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<CustOrder> CustOrders { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
@@ -115,7 +114,6 @@ namespace BookStore.Infrastructure.Data
                     .IsUnicode(false)
                     .HasColumnName("isbn13");
 
-                entity.Property(e => e.LanguageId).HasColumnName("language_id");
 
                 entity.Property(e => e.NumPages).HasColumnName("num_pages");
 
@@ -129,10 +127,7 @@ namespace BookStore.Infrastructure.Data
                     .HasMaxLength(400)
                     .HasColumnName("title");
 
-                entity.HasOne(d => d.Language)
-                    .WithMany(p => p.Books)
-                    .HasForeignKey(d => d.LanguageId)
-                    .HasConstraintName("fk_book_lang");
+             
 
                 entity.HasOne(d => d.Publisher)
                     .WithMany(p => p.Books)
@@ -160,26 +155,7 @@ namespace BookStore.Infrastructure.Data
                         });
             });
 
-            modelBuilder.Entity<BookLanguage>(entity =>
-            {
-                entity.HasKey(e => e.LanguageId)
-                    .HasName("pk_language");
-
-                entity.ToTable("book_language");
-
-                entity.Property(e => e.LanguageId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("language_id");
-
-                entity.Property(e => e.LanguageCode)
-                    .HasMaxLength(8)
-                    .IsUnicode(false)
-                    .HasColumnName("language_code");
-
-                entity.Property(e => e.LanguageName)
-                    .HasMaxLength(50)
-                    .HasColumnName("language_name");
-            });
+           
 
             modelBuilder.Entity<Country>(entity =>
             {

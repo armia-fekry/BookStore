@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Mapping\ShippingMethodMappers\" />
     <Folder Include="Services\AuthersServices\" />
   </ItemGroup>
 

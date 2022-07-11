@@ -2,7 +2,6 @@ using BookStore.Application.IRepositories;
 using BookStore.Application.Services.BooksServices;
 using BookStore.Application.Services.CategoriesServices;
 using BookStore.Application.Services.CustOrderServices;
-using BookStore.Application.Services.LanguagesServices;
 using BookStore.Application.Services.OrderHistories;
 using BookStore.Application.Services.PublisherService;
 using BookStore.Infrastructure.Data;
@@ -40,7 +39,6 @@ builder.Services.AddDbContext<BookStoreContext>(opt => {
 	});
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IBookService, BookService>();
-builder.Services.AddTransient<ILanguageService, LanguageService>();
 builder.Services.AddTransient<IPublisherService, PublisherService>();
 builder.Services.AddTransient<ICustOrderService, CustOrderService>();
 builder.Services.AddTransient<IOrderHistoryService, OrderHistoryService>();

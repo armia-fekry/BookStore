@@ -7,7 +7,6 @@ namespace BookStore.Infrastructure.Repositories
 	{
 		private readonly BookStoreContext _context;
 		public IBookRepository bookRepository { get; private set; }
-		public IBookLanguageRepository bookLanguageRepository { get; private set; }
 		public IPublisherRepository publisherRepository { get; private set; }
 		public ICustOrderRepository custOrderRepository { get; private set; }
 		public IShippingMethodRepository shippingMethodRepository { get; private set; }
@@ -23,7 +22,6 @@ namespace BookStore.Infrastructure.Repositories
 			this._context = context;
 			bookRepository = new BookRepository(context);
 			publisherRepository = new PublisherRepository(context);
-			bookLanguageRepository = new BookLanguageRepositoy(context);
 			custOrderRepository=new CustOrderRepository(context);
 			customerRepository=new CustomerRepository(context);
 			customerAdressesRepository=new CustomerAdressesRepository(context);

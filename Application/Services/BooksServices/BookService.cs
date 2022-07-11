@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using BookStore.Application.IRepositories;
 using BookStore.Application.Services.BooksServices.Dto;
-using BookStore.Application.Services.LanguagesServices;
-using BookStore.Application.Services.LanguagesServices.Dto;
 using BookStore.Application.Services.PublisherService;
-using BookStore.Application.Services.PublisherService.Dto;
 using BookStore.Application.Shared;
 using BookStore.Domain;
 
@@ -13,16 +10,14 @@ namespace BookStore.Application.Services.BooksServices
 	public class BookService : IBookService
 	{
 		private readonly IUnitOfWork _unitOfWork;
-		private readonly ILanguageService _languageService;
 		private readonly IPublisherService _publisherService;
 		private readonly IMapper _mapper;
 
-		public BookService(IUnitOfWork unitOfWork,ILanguageService languageService,
+		public BookService(IUnitOfWork unitOfWork,
 							IPublisherService publisherService
 			, IMapper mapper)
 		{
 			_unitOfWork = unitOfWork;
-			this._languageService = languageService;
 			this._publisherService = publisherService;
 			this._mapper = mapper;
 		}
@@ -32,12 +27,8 @@ namespace BookStore.Application.Services.BooksServices
 			try
 			{
 				var book = new Book();
-				Assersion.AgainstManyNull("Invalid Or Empty Language Of The Book",
-										bookDto.LanguageId, bookDto.Language);
 				Assersion.AgainstManyNull("Invalid Or Empty Publisher Id..",
 										bookDto.PublisherId, bookDto.PublisherName);
-				var bookLanguage = await _languageService.GetOrCreateBookLanguage(bookDto.LanguageId, bookDto.Language);
-				//book.PublisherId = await HandleBookPublisher(bookDto.PublisherId, bookDto.PublisherName);
 				book.Title = bookDto.Title;
 				book.Isbn13 = bookDto.Isbn13;
 				book.NumPages = bookDto.NumPages;

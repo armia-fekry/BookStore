@@ -3,7 +3,6 @@
 	public interface IUnitOfWork:IDisposable
 	{
 		public IBookRepository bookRepository { get; }
-		public IBookLanguageRepository bookLanguageRepository { get; }
 		public IPublisherRepository publisherRepository { get; }
 		public ICustomerRepository customerRepository { get; }
 		public IOrderHistoryRepository orderHistoryRepository { get; }

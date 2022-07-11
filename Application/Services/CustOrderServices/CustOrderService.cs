@@ -1,22 +1,20 @@
-﻿using BookStore.Application.IRepositories;
+﻿using AutoMapper;
+using BookStore.Application.IRepositories;
 using BookStore.Application.Services.CustOrderServices.Dto;
 using BookStore.Application.Shared;
 using BookStore.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookStore.Application.Services.CustOrderServices
 {
 	public class CustOrderService : ICustOrderService
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly IMapper _mapper;
 
-		public CustOrderService(IUnitOfWork unitOfWork)
+		public CustOrderService(IUnitOfWork unitOfWork,IMapper mapper)
 		{
 			_unitOfWork = unitOfWork;
+			_mapper = mapper;
 		}
 		public async  Task<ApiResponse<CustOrderDto>> AddCustorder(CreateCustOrderDto createCustOrderDto)
 		{
@@ -42,6 +40,22 @@ namespace BookStore.Application.Services.CustOrderServices
 				return null;
 			}
 			
+		}
+
+		public async Task<ApiResponse<IList<ShippingMethodDto>>> ShippingMethod()
+		{
+			var result= new ApiResponse<IList<ShippingMethodDto>>();
+			try
+			{
+				var methods=await _unitOfWork.shippingMethodRepository.GetAllAsync();
+				result.Result = _mapper.Map<IList<ShippingMethodDto>>(methods);
+				result.Succeeded = true;
+			}
+			catch (Exception ex )
+			{
+				result.Errors = Helper.FormatException(ex.Message, ex.StackTrace);
+			}
+			return result;
 		}
 	}
 }

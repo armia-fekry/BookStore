@@ -19,9 +19,7 @@ namespace BookStore.Application.Mapping.BookMappers
 				.ForMember(dto => dto.CategoryId, model => model.MapFrom(e => e.CategotyId))
 				.ForMember(dto => dto.CategoryName, model => model.MapFrom(e => e.Category.CategoryName))
 				.ForMember(dto => dto.BookId, model => model.MapFrom(e => e.BookId))
-				.ForMember(dto => dto.Authers, model => model.MapFrom(e => Helper.ExtractAuthersNames(e.Authors.ToList())))
-				.ForMember(dto => dto.Img, model => model.MapFrom(e => Helper.ImageToBase64(e.Path)))
-				.ForMember(dto => dto.BookLanguage, model => model.MapFrom(e => e.Language.LanguageName));
+				.ForMember(dto => dto.Authers, model => model.MapFrom(e => Helper.ExtractAuthersNames(e.Authors.ToList())));
 		}
 	}
 }

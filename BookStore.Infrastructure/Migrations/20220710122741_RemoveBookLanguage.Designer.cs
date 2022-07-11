@@ -4,6 +4,7 @@ using BookStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Infrastructure.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    partial class BookStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20220710122741_RemoveBookLanguage")]
+    partial class RemoveBookLanguage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,17 +114,11 @@ namespace BookStore.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("book_id");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
                     b.Property<Guid?>("CategotyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IndexImgPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Isbn13")
@@ -134,9 +130,6 @@ namespace BookStore.Infrastructure.Migrations
                     b.Property<int?>("NumPages")
                         .HasColumnType("int")
                         .HasColumnName("num_pages");
-
-                    b.Property<decimal?>("OldPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");

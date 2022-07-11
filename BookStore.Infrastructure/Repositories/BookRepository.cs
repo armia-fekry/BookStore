@@ -21,7 +21,6 @@ namespace BookStore.Infrastructure.Repositories
 
 			var res =  await _context.Books.OrderBy(b => b.BookId)
 				.Include(e => e.Authors)
-				.Include(e=>e.Language)
 				.Include(e=>e.Publisher)
 				.Include(e=>e.Category)
 				.Skip(page)
