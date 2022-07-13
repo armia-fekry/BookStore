@@ -13,13 +13,15 @@ using Serilog;
 using Serilog.Formatting.Compact;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Host.UseSerilog((ctx, config) =>
-//{
-//	config.MinimumLevel.Debug();
-//	config.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning);
-//	config.WriteTo.File(new RenderedCompactJsonFormatter(), @$"{Environment.CurrentDirectory}");
-//});
-// Add services to the container.
+//Add SeriLog For Debugging
+builder.Host.UseSerilog((ctx, config) =>
+{
+	config.MinimumLevel.Debug();
+	config.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning);
+	config.WriteTo.File(new RenderedCompactJsonFormatter(), @$"{Environment.CurrentDirectory}");
+});
+
+//Add services to the container.
 #region Add Cors 
 builder.Services.AddCors(options =>
 {
