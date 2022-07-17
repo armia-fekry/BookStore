@@ -1,4 +1,6 @@
-﻿using BookStore.Application.Services.CustOrderServices;
+﻿using BookStore.Application.Services.CustomerServices;
+using BookStore.Application.Services.CustomerServices.Dto;
+using BookStore.Application.Services.CustOrderServices;
 using BookStore.Application.Services.CustOrderServices.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,12 @@ namespace BookStore.Api.Controllers
 	public class CustomerOrderController : ControllerBase
 	{
 		private readonly ICustOrderService _custOrderService;
+		private readonly ICustomerService _customerService;
 
-		public CustomerOrderController(ICustOrderService custOrderService)
+		public CustomerOrderController(ICustOrderService custOrderService,ICustomerService customerService)
 		{
 			this._custOrderService = custOrderService;
+			this._customerService = customerService;
 		}
 		// GET: api/<CustomerOrderController>
 		[HttpGet]
@@ -51,6 +55,13 @@ namespace BookStore.Api.Controllers
 		public async Task<ActionResult> GetShippingMethods()
 		{
 			return Ok(await _custOrderService.ShippingMethod());
+		}
+		[HttpPost("LogIn")]
+		public async Task<ActionResult> LogIn([FromBody] customerloginDto customerlogin)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState.ValidationState);
+			return Ok(await _customerService.LogIn(customerlogin));
 		}
 	}
 }

@@ -11,5 +11,6 @@ namespace BookStore.Application.Services.BooksServices
 		Task<Book> GetBookByNameAsync(string name);
 		bool DeleteBook(Guid id);
 		Task<ApiResponse<Book>> AddBookAsync(BookCreateDto book);
+		Task<IEnumerable<BookDto>> GetCategorieBooks(string categoryId, int page, int pageSize);
 	}
 }

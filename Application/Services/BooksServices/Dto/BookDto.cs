@@ -11,9 +11,10 @@
 		public string Description { get; set; }
 		public decimal Price { get; set; }
 		public int Reviews { get; set; }
-		public string BookLanguage { get; set; }
 		public string Publisher { get; set; }
 		public string? Authers { get; set; }
 		public string? Img  { get; set; }
+		public decimal OldPrice { get; set; }
+		public int Amount { get; set; }
 	}
 }

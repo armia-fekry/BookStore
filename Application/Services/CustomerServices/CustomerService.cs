@@ -21,14 +21,23 @@ namespace BookStore.Application.Services.CustomerServices
 			try
 			{
 				var customer = await _unitOfWork.customerRepository
-						.FindAsync(e => e.Email == logInDto.Email && e.PassWord == logInDto.PassWod);
+						.FindAsync(e => e.Email == logInDto.Email && e.PassWord == logInDto.Password);
 				if (customer == null)
 				{
 					response.Errors = "Invalid Email Or Password";
 				}
 				else
 				{
+					var cust_address = await _unitOfWork.customerAdressesRepository.FindAsync(e => e.CustomerId == customer.CustomerId);
+					var adress = await _unitOfWork.adressesRepository.FindAsync(e => e.AddressId == cust_address.AddressId, new string[] { "Country" });
+					var adressDto = new AdressDto()
+						{
+							street = adress.StreetName,
+							city = adress.City,
+							country = adress.Country.CountryName
+						};
 					response.Result = _mapper.Map<CustomerlogInResult>(customer);
+					response.Result.adress = adressDto;
 					response.Succeeded = true;
 				}
 			}

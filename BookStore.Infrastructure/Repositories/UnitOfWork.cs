@@ -17,6 +17,8 @@ namespace BookStore.Infrastructure.Repositories
 		public IorderLineRepository orderLineRepository { get; private set; }
 		public ICategoryRepository categoryRepository { get; private set; }
 
+		public IAdressesRepository adressesRepository { get; private set; }
+
 		public UnitOfWork(BookStoreContext context)
 		{
 			this._context = context;
@@ -29,6 +31,7 @@ namespace BookStore.Infrastructure.Repositories
 			orderLineRepository=new OrderLineRepository(context);
 			orderHistoryRepository=new OrderHistoryRepository(context);
 			categoryRepository=new CategoryRepository(context);
+			adressesRepository = new AddressRepository(context);
 		}
 
 		public int Complete()

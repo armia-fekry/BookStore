@@ -21,12 +21,18 @@ namespace BookStore.Api.Controllers
 		}
 		// GET: api/<BookController>
 		[HttpGet]
-		public async Task<IEnumerable<object>> Get(int page=0,int pageSize=100)
+		public async Task<IEnumerable<BookDto>> Get(int page=0,int pageSize=100)
 		{
 			
 			return await _bookService.GetAll(page,pageSize);
 		}
 
+		[HttpGet("category")]
+		public async Task<IEnumerable<BookDto>> GetCategoriesBook(string categoryName ,int page = 0, int pageSize = 100)
+		{
+
+			return await _bookService.GetCategorieBooks(categoryName, page, pageSize);
+		}
 		// GET api/<BookController>/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult> Get(string id)

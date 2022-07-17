@@ -18,5 +18,11 @@
 			if (id == Guid.Empty)
 				throw new InvalidDataException(v);
 		}
+
+		internal static void AgainstNullOrEmpty(string categoryName, string v)
+		{
+			if(string.IsNullOrEmpty(categoryName))
+				throw new ArgumentNullException(categoryName);
+		}
 	}
 }

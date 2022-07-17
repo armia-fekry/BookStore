@@ -16,7 +16,7 @@ namespace BookStore.Application.Mapping.BookMappers
 				.ForMember(dto => dto.Reviews, model => model.MapFrom(e => e.Reviews))
 				.ForMember(dto => dto.Description, model => model.MapFrom(e => e.Description))
 				.ForMember(dto => dto.NumPages, model => model.MapFrom(e => e.NumPages))
-				.ForMember(dto => dto.CategoryId, model => model.MapFrom(e => e.CategotyId))
+				.ForMember(dto => dto.CategoryId, model => model.MapFrom(e => e.Category.CategotyId))
 				.ForMember(dto => dto.CategoryName, model => model.MapFrom(e => e.Category.CategoryName))
 				.ForMember(dto => dto.BookId, model => model.MapFrom(e => e.BookId))
 				.ForMember(dto => dto.Authers, model => model.MapFrom(e => Helper.ExtractAuthersNames(e.Authors.ToList())));

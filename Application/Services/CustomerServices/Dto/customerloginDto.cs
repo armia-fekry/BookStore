@@ -7,6 +7,6 @@ namespace BookStore.Application.Services.CustomerServices.Dto
 		[Required(ErrorMessage ="Invalid User Name")]
 		public string Email { get; set; }
 		[Required(ErrorMessage = "Invalid Password")]
-		public string PassWod { get; set; }
+		public string Password { get; set; }
 	}
 }

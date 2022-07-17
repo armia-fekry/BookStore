@@ -11,6 +11,7 @@
 		public IShippingMethodRepository shippingMethodRepository { get; }
 		public IorderLineRepository orderLineRepository { get; }
 		public ICategoryRepository categoryRepository { get; }
+		public IAdressesRepository adressesRepository { get; }
 		int Complete();
 	}
 }

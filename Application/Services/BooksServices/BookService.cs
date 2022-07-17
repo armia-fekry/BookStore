@@ -57,7 +57,7 @@ namespace BookStore.Application.Services.BooksServices
 		public async Task<IEnumerable<BookDto>> GetAll(int page = 0, int pageSize = 100)
 		{
 			var books = await _unitOfWork.bookRepository
-										  .GetBooksAsync(page, pageSize);
+										  .GetBooksAsync(e=>e.BookId!=Guid.Empty,page, pageSize);
 			return _mapper.Map <IEnumerable<BookDto>>(books);
 		}
 
@@ -67,7 +67,7 @@ namespace BookStore.Application.Services.BooksServices
 			var result = new ApiResponse<BookDto>();
 			try
 			{
-				var book =_unitOfWork.bookRepository.GetById(id);
+				var book =await _unitOfWork.bookRepository.FindAsync(e=>e.BookId==id,new string[] { "Category" });
 				result.Result=_mapper.Map<BookDto>(book);
 				result.Succeeded = true;
 			}
@@ -81,6 +81,22 @@ namespace BookStore.Application.Services.BooksServices
 		public Task<Book> GetBookByNameAsync(string name)
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<IEnumerable<BookDto>> GetCategorieBooks(string categoryName, int page, int pageSize)
+		{
+			try
+			{
+				Assersion.AgainstNullOrEmpty(categoryName, "invalid category Name");
+				var category = await _unitOfWork.categoryRepository.FindAsync(e => e.CategoryName == categoryName);
+				var books = await _unitOfWork.bookRepository.GetBooksAsync(e=>e.CategotyId==category.CategotyId, page, pageSize);
+				return _mapper.Map<IEnumerable<BookDto>>(books);
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+
 		}
 	}
 }
